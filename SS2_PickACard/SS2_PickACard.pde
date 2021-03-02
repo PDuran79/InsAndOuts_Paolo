@@ -1,4 +1,4 @@
-//Explosive Cask by Paolo Duran
+//PickACard by Paolo Duran
 /*
   Use of declared integer and float variables
   At least one conditional statement using if, else if, and else
