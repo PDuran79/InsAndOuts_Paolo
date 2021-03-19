@@ -125,32 +125,38 @@ void CardEffect()//shows the cards effect
 {
     if(cardState == "Blue")
     {
-      //Restores mana
       Blue();
     }
     else if(cardState == "Red")
     {
-      //Slows
       Red();
     }
     else if(cardState == "Gold")
     {
-       //Stuns
        Gold();
     }
 }
 void Blue()
 {
-   background(255);
-   text("Hello", width/2, height/2);
+    //Restores mana
+    background(255);
+    fill(#0000ff);
+    text("Blue", width/2, 100);
+    image(cards[0],width/2, height/2);
 }
 void Red()
 {
+   //slows 
     background(255);
-    text("Hello", width/2, height/2);
+    fill(#ff0000);
+    text("Red", width/2, 100);
+    image(cards[1],width/2, height/2);
 }
 void Gold()
 {
+    //stuns
     background(255);
-    text("Hello", width/2, height/2);
+    fill(#FFD700);
+    text("Gold", width/2, 100);
+    image(cards[2],width/2, height/2);
 }
