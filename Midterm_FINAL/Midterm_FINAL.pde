@@ -19,13 +19,13 @@ int Simage = (int)random(0,3);//used to start image cycling at a random image
 boolean Select = false;//used to show that you "picked" a card
 int Pimage = Simage;//used to bring up image of which card was picked
 String state = "Start";//used to define which state the code is in
-String cardState;
-int Maxmana = 996;
-int Cmana = Maxmana;
-int BHP = 2132;
-int WDMG;
-int ManaB = 900;
-int AD = 108;
+String cardState;//state of the card
+int Maxmana = 996;//Max mana value
+int Cmana = Maxmana;//current mana 
+int BHP = 2132;//health value
+int WDMG;// Damage a card does
+int ManaB = 900;//right side point value for mana quad
+int AD = 108;//base number used to modify WDMG
 void setup()
 {
     size(1000,1000);
@@ -235,6 +235,7 @@ void Blue()
     fill(255);
     text("Press R to reset.", width/2, 900);
     //Cmana += 150;
+    //problem code
     if(Cmana < Maxmana)
     {
        Cmana += 150;
@@ -244,6 +245,7 @@ void Blue()
     {
        Cmana = Maxmana; 
     }
+    //problem code
     //loop();
     fill(0);
     text(BHP, width/2, 700);
