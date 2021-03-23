@@ -1,11 +1,4 @@
-//Midterm WIP 2
-/*
-When pressing w Cards cycle starting at a random card
-^finished
-when pressing w a 2nd time stop at the card shown
-^finished
-Card effect activated after card is picked
-*/
+//Midterm Final
 PImage TFW;//spell indicator image
 PImage cards[] = new PImage[3];//images for the cards
 PImage SR;//background image
@@ -21,11 +14,13 @@ int Pimage = Simage;//used to bring up image of which card was picked
 String state = "Start";//used to define which state the code is in
 String cardState;//state of the card
 int Maxmana = 996;//Max mana value
+int addMana = 150;
 int Cmana = Maxmana;//current mana 
 int BHP = 2132;//health value
 int WDMG;// Damage a card does
 int ManaB = 900;//right side point value for mana quad
 int AD = 108;//base number used to modify WDMG
+int manaCount = 0;//allows mana to increase once
 void setup()
 {
     size(1000,1000);
@@ -80,9 +75,6 @@ void draw()
     }
     else if(state == "PickaCard")
     {
-      println("Simage: " + Simage);
-      println("Pimage: " + Pimage);
-      println("Select: " + Select);
       fill(255);
       text("Press S to select a card.", width/2, 900);
       text("To reset Mana press ENTER", width/2, 950);
@@ -112,7 +104,6 @@ void draw()
     }
     else if(state == "CardSelect")
     {
-        println("Card State: " + cardState);
         fill(#2fff00);
         quad(100,650, 100, 700, 900, 700, 900,650);
         fill(#808080);
@@ -169,8 +160,7 @@ void keyPressed()
    {
       state = "CardSelect";
       Select = true;
-      next = false;
-      //CardEffect(); 
+      next = false; 
    }
    if(key == ENTER)
    {
@@ -187,6 +177,7 @@ void keyPressed()
       fill(255);
       next = false;
       Select = false;
+      manaCount = 0;
    }
    if(key == ' ')
    {
@@ -197,13 +188,6 @@ void CardEffect()//shows the cards effect
 {
     if(cardState == "Blue")
     {
-      /*
-      ManaB += 152;
-      if(ManaB > 900)
-      {
-        ManaB = 900;
-      }
-      */
       Blue();
     }
     else if(cardState == "Red")
@@ -217,7 +201,6 @@ void CardEffect()//shows the cards effect
 }
 void Blue()
 {
-    //Restores mana
     background(0);
     image(SR, width/2, 300);
     image(Teemo, 700, 400);
@@ -234,26 +217,33 @@ void Blue()
     image(cards[0],width/2, 800);
     fill(255);
     text("Press R to reset.", width/2, 900);
-    //Cmana += 150;
-    //problem code
-    if(Cmana < Maxmana)
+    if(manaCount < 1)
     {
-       Cmana += 150;
-       //noLoop();
+       if(Cmana < Maxmana)
+       {
+           Cmana += addMana;
+           manaCount = 1;
+       }
+       else
+       {
+          Cmana = Maxmana; 
+       }
+       if(ManaB < 900)
+       {
+          ManaB += 152;
+          manaCount = 1;
+       }
+       else
+       {
+         ManaB = 900;
+       }
     }
-    else if(Cmana > Maxmana)
-    {
-       Cmana = Maxmana; 
-    }
-    //problem code
-    //loop();
     fill(0);
     text(BHP, width/2, 700);
     text(Cmana + "/" + Maxmana, width/2, 750);
 }
 void Red()
 {
-   //slows 
     background(0);
     image(SR, width/2, 300);
     image(Teemo, 700, 400);
@@ -277,7 +267,6 @@ void Red()
 }
 void Gold()
 {
-    //stuns
     background(0);
     image(SR, width/2, 300);
     image(Teemo, 700, 400);
