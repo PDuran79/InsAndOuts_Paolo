@@ -44,12 +44,7 @@ void draw()
   else if(gameState == "Game")
   {
     Game();
-    if(mouseX < width/2)
-    {
-       keyState = 1; 
-    }
   }
-  myPort.write(keyState);
 }
 
 void serialEvent(Serial myPort)
@@ -64,21 +59,23 @@ void serialEvent(Serial myPort)
          myPort.clear();
          Connection = true;
          myPort.write(0);
+         println("Clear");
        }
     }
     else
     {
-       if(inByte == 'A')
+       if(inByte == 'A' && gameState == "Menu")
        {
          gameState = "Game";
          println("A");
        }
-       else if(inByte == 'B')
+       else if(inByte == 'B' && gameState == "Game")
        {
          gameState = "Menu";
          println("B");
        }
     }
+    myPort.write(keyState);
   }  
 }
 void Menu()

@@ -27,17 +27,21 @@ void loop()
   BBState = digitalRead(ButB);
 
   outByte = 'C';
+  //delay(100);
   if(BAState == HIGH && BACount != 1)
   {
     outByte = 'A';
     BACount = 1;
     BBCount = 0;
+    //Serial.print('A');
   }
+  delay(10);
   if(BBState == HIGH && BBCount != 1)
   {
     outByte = 'B';
     BACount = 0;
     BBCount = 1;
+    //Serial.print('B');
   }
   delay(10);
   
