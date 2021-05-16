@@ -4,6 +4,7 @@ const int LED = 8;
 int inByte = 0;
 int BAState = LOW;
 int BBState = LOW;
+char outByte = 0;
 
 void setup() 
 {
@@ -23,13 +24,14 @@ void loop()
   BAState = digitalRead(BA);
   BBState = digitalRead(BB);
 
+  outByte = 'C';
   if(BAState == HIGH)
   {
-    Serial.print('A');
+    outByte = 'A';
   }
   else if(BBState == HIGH)
   {
-    Serial.print('B');
+    outByte = 'B';
   }
 
   if(Serial.available() > 0)

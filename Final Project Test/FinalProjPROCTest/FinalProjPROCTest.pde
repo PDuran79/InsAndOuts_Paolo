@@ -9,7 +9,7 @@ int keyState = 0;
 void setup()
 {
   size(500,500);
-  String portName = Serial.list()[2];
+  String portName = Serial.list()[0];
   myPort = new Serial(this, portName, 9600);
 }
 void draw()
