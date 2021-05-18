@@ -4,13 +4,14 @@ PImage Wall;
 PImage Key;
 PImage Door;
 String keyState = "Don't Have";
-String gameState = "Menu";
-String DState;
-String SState;
-String AState;
-String WState;
+String gameState = "Level 1";
+Boolean DState = false;
+Boolean SState = false;
+Boolean AState = false;
+Boolean WState = false;
 int Px = 225;
 int Py = 25;
+int CTest = 26;
 void setup()
 {
   size(1200,1000);
@@ -35,120 +36,121 @@ void draw()
   else if(gameState == "Level 1")
   {
     Level1();
+    print(Px);
     if(Px == 225 && Py <950)
     {
-      AState = "No";
-      DState = "No";
+      AState = false;
+      DState = false;
       if(Py >= 25 && Py <= 925)
       {
          if(keyState == "Don't Have" && Py >= 875)
          {
-           SState = "No";
-           WState = "Yes";
+           SState = false;
+           WState = true;
          }
          else
          {
-           SState = "Yes";
-           WState = "Yes";
+           SState = true;
+           WState = true;
          }
          if(Py == 25)
          {
-           WState = "No";
-           SState = "Yes";
+           WState = false;
+           SState = true;
          }
          if(Py == 475)
          {
            if(Px >= 225 && Px <=325)
            {
-              AState = "Yes";
-              DState = "Yes";
+              AState = true;
+              DState = true;
               if(Px == 225)
-              {AState = "No";DState = "Yes";}
+              {AState = false;DState = true;}
               if(Px == 325)
-              {AState = "Yes";DState = "No";}
+              {AState = true;DState = false;}
            }
          }
       }
     }
     if(Px == 325 && Py <950)
     {
-      DState = "No";
-      AState = "No";
+      DState = false;
+      AState = false;
       if(Py == 475)
-      {AState = "Yes";DState = "No";}
+      {AState = true;DState = false;}
       if(Py >= 125 && Py <= 875)
       {
-        WState = "Yes";
-        SState = "Yes";
+        WState = true;
+        SState = true;
         if(Py == 125)
         {
-          WState = "No";
-          SState = "Yes";
-          DState = "Yes";
-          AState = "No";
+          WState = false;
+          SState = true;
+          DState = true;
+          AState = false;
         }
         if(Py == 875)
         {
-          WState = "Yes";
-          SState = "No";
-          DState = "Yes";
-          AState = "No";
+          WState = true;
+          SState = false;
+          DState = true;
+          AState = false;
         }
       }
       if(Py == 25)
       {
-        DState = "Yes";
-        AState = "No";
-        WState = "No";
-        SState = "No";
+        DState = true;
+        AState = false;
+        WState = false;
+        SState = false;
         keyState = "Have";
         if(Px >= 325 && Px <= 1175)
-        {DState = "Yes";AState = "Yes";}
+        {DState = true;AState = true;}
         if(Px == 325)
-        {AState = "No";DState = "Yes";}
+        {AState = false;DState = true;}
         if(Px == 1175)
-        {AState = "Yes";DState = "No";}
+        {AState = true;DState = false;}
       }
     }
     if(Px == 425 && Py < 950)
     {
-      AState = "No";DState = "No";
+      AState = false;DState = false;
       if(Py >= 125 && Py <= 875)
       {
-        WState = "Yes"; SState = "Yes";
+        WState = true; SState = true;
         if(Py == 125)
-        {AState = "Yes";DState = "No";WState = "No";SState = "Yes";}
+        {AState = true;DState = false;WState = false;SState = true;}
         if(Py == 575)
-        {DState = "Yes";AState = "No";
+        {DState = true;AState = false;
           if(Px == 525)
-          {AState = "Yes";
-          DState = "No"; }
+          {AState = true;
+          DState = false; }
         }
         if(Py == 875)
-        {AState = "Yes";DState = "No";SState = "No";WState = "Yes";}
+        {AState = true;DState = false;SState = false;WState = true;}
       }
     }
     if(Px == 525)
     {
-        WState = "Yes";
-        SState = "Yes";
+        WState = true;
+        SState = true;
         if(Py == 575)
         {
-          AState = "Yes";
-          DState = "No";
-          SState = "No";
+          AState = true;
+          DState = false;
+          SState = false;
         }
         if(Py == 525)
         {
-          AState = "No";
-          DState = "Yes";
-          WState = "No";
+          AState = false;
+          DState = true;
+          WState = false;
           if(Px >= 525 && Px<= 1075)
           {
-            AState = "Yes";
-            DState = "Yes";
+            AState = true;
+            DState = true;
             if(Px == 525)
-            {DState = "Yes";AState = "No";}
+            {DState = true;AState = false;}
           }
         }
     }
@@ -156,57 +158,67 @@ void draw()
     {
       if(Py >= 525 && Py <= 775)
       {
-        WState = "Yes";
-        SState = "Yes";
-        DState = "No";
-        AState = "Yes";
+        WState = true;
+        SState = true;
+        DState = false;
+        AState = true;
         if(Py == 525)
-        {SState = "Yes";WState = "No";}
+        {SState = true;WState = false;}
         if(Py == 775)
-        {SState = "No";WState = "Yes";AState = "No";DState = "No";}
+        {SState = false;WState = true;AState = false;DState = false;}
         if(Py == 625)
         {
-          if(Px == 625&& Py < 575)
-          {
-            AState = "No";
-            DState = "Yes";
+          AState = true;
+          DState = false;
+          /*
             if(Py >= 625 && Py <= 775)
             {
-              WState = "Yes"; 
-              SState = "Yes";
+              WState = true; 
+              SState = true;
               if(Py == 625)
               {
-                SState = "Yes";
-                WState = "No";
+                SState = true;
+                WState = false;
               }
               if(Py == 775)
               {
-                SState = "No";
-                WState = "Yes";
+                SState = false;
+                WState = true;
               }
             }
-          }
-        }
+            */
+         }
       }
     }
-    if(Py == 975)
-    {WState = "Yes";DState = "Yes";AState = "No";SState = "No";}
-    /*
-    if(Px == 75 || Px == 175 || Px == 275 || Px >= 375 && Px <= 825)
+    if(Px == 625&& Py ==625)
     {
-       WState = "No";
-       SState = "No";
+       AState = false;
+       DState = true;
+       WState = false;
+       SState = false;
+       if(Py > 625 && Py < 775)
+       {
+         WState = true;
+         SState = true;
+         AState = false;
+         DState = false;
+         if(Py == 625)
+         {
+           SState = true;
+           WState = true;
+           DState = true;
+         }
+         if(Py == 775)
+         {
+            WState = true;
+            SState = true;
+            DState = true;
+            AState = true;
+         }
+       }
     }
-    */
   }
-  else if(gameState == "Level 2")
-  {
-    Level2();
-  }
-  else if(gameState == "Level 3")
-  {
-    Level3();
-  }
+ 
   else if(gameState == "End Game")
   {
     
@@ -216,7 +228,7 @@ void keyPressed()
 {
    if(key == 'w')
    {
-     if(WState == "Yes")
+     if(WState == true)
      {
         Py -= 25;
      }
@@ -227,7 +239,7 @@ void keyPressed()
    }
    else if(key == 'a')
    {
-     if(AState == "Yes")
+     if(AState == true)
      {
        Px -=25;
      }
@@ -238,7 +250,7 @@ void keyPressed()
    }
    else if(key == 's')
    {
-     if(SState == "Yes")
+     if(SState == true)
      {
        Py +=25;
      }
@@ -249,7 +261,7 @@ void keyPressed()
    }
    else if(key == 'd')
    {
-     if(DState == "Yes")
+     if(DState == true)
      {
         Px +=25;
      }
@@ -278,63 +290,55 @@ void Level1()
   ellipse(Px, Py, 50, 50);//player
   for(int y = 0; y<450; y += 50)
   {
-    image(Wall, 250, y);
-    image(Wall, 250, y+500);
-    image(Wall, 450, y+100);
+    image(Wall, 250, y);//wall 1 V
+    image(Wall, 250, y+500);//wall 2 V
+    image(Wall, 450, y+100);//wall 4 V
   }
   for(int x = 300; x <1150; x+=50)
   {
-    image(Wall, x, 50);
+    image(Wall, x, 50);//wall 1 H
   }
   for(int x = 300; x <=1150; x+=50)
   {
-    image(Wall, x, 900);
+    image(Wall, x, 900);//wall 10 H
   }
   for(int y = 150; y < 850; y += 50)
   {
-    image(Wall, 350, y);
+    image(Wall, 350, y);//wall 3 V
   }
   for(int y = 600; y < 950; y += 50)
   {
-    image(Wall, 450, y);
+    image(Wall, 450, y);//wall 5 V 
   }
   for(int x = 500; x < 1150; x += 50)
   {
-     image(Wall, x, 250); 
-     image(Wall, x, 450);
-     image(Wall, x+50, 150);
-     image(Wall, x+50, 350);
+     image(Wall, x, 250); //wall 3 H
+     image(Wall, x, 450);//wall 5 H
+     image(Wall, x+50, 150);//wall 2 H
+     image(Wall, x+50, 350);//wall 4 H
   }
   for(int y = 600; y < 750; y += 50)
   {
-    image(Wall, 550, y);
-    image(Wall, 1000, y+50);
+    image(Wall, 550, y);//wall 6 V
+    image(Wall, 1000, y+50);//wall 7 V
   }
   for(int y = 450; y < 850; y += 50)
   {
-    image(Wall, 1100, y);
+    image(Wall, 1100, y);//wall 8 V
   }
   for(int x = 550; x < 1050; x += 50)
   {
-    image(Wall, x, 550);
+    image(Wall, x, 550);//wall 6 H
   }
   for(int x = 650; x < 1000; x += 50)
   {
-    image(Wall, x, 700);
-    image(Wall, x, 650);
+    image(Wall, x, 700);//wall 7B H
+    image(Wall, x, 650);//wall 7A H
   }
   for(int x = 550; x < 1100; x += 50)
   {  
-    image(Wall, x, 800);
+    image(Wall, x, 800);//wall 8 H
   } 
-}
-void Level2()
-{
-  
-}
-void Level3()
-{
-  
 }
 void instructions()
 {
