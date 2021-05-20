@@ -1,17 +1,23 @@
 //Maze Game 
+import processing.serial.*;
+
+Serial myPort;
+
+boolean Connection = false;
 PImage Floor;
 PImage Wall;
 PImage Key;
 PImage Door;
-String keyState = "Don't Have";
-String gameState = "Level 1";
+int keyState = 0;
+String gameState = "Menu";
 Boolean DState = false;
 Boolean SState = false;
 Boolean AState = false;
 Boolean WState = false;
 int Px = 225;
 int Py = 25;
-int CTest = 26;
+int B1val = 0;
+int B2val = 0;
 void setup()
 {
   size(1200,1000);
@@ -25,25 +31,30 @@ void setup()
   Key.resize(50,50);
   Door = loadImage("door.png");
   Door.resize(50,50);
+  
+  String portName = Serial.list()[2];
+  myPort = new Serial(this, portName, 9600);
 }
 void draw()
 {
   background(#000000);
+  println("B1: " + B1val);
+  println("B2: " + B2val);
   if(gameState == "Menu")
   {
     menu();
   }
-  else if(gameState == "Level 1")
+  else if(gameState == "Game")
   {
     Level1();
-    print(Px);
+    //print(Px);
     if(Px == 225 && Py <950)
     {
       AState = false;
       DState = false;
       if(Py >= 25 && Py <= 925)
       {
-         if(keyState == "Don't Have" && Py >= 875)
+         if(keyState == 1 && Py >= 875)
          {
            SState = false;
            WState = true;
@@ -103,7 +114,7 @@ void draw()
         AState = false;
         WState = false;
         SState = false;
-        keyState = "Have";
+        keyState = 1;
         if(Px >= 325 && Px <= 1175)
         {DState = true;AState = true;}
         if(Px == 325)
@@ -270,10 +281,29 @@ void keyPressed()
         Py +=0; 
      }
    }
-   else if(key == ENTER)
-   {
-     gameState = "Level 1";
-   }
+}
+void serialEvent(Serial myPort)
+{
+  if(myPort.available() >0)
+  {
+    int read = myPort.read();
+    if(read == 0 || read == 1)
+    {
+      B1val = read;
+    }
+    else
+    {
+      B2val = read; 
+    }
+    if(read == 1)
+    {
+      println("B1");
+    }
+    else if(read == 4)
+    {
+      println("B2");
+    }
+  }
 }
 void Level1()
 {
