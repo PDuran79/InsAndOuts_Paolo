@@ -1,3 +1,7 @@
+/*
+Paolo Duran
+Maze Game
+*/
 import processing.serial.*;
 
 Serial myPort;
